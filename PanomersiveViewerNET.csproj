@@ -107,7 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ImExTk.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=2604320bde3eedc4, processorArchitecture=x86">
-      <HintPath>packages\ImExTk.NET.1.0.4\lib\x86\ImExTk.NET.dll</HintPath>
+      <HintPath>packages\ImExTk.NET.1.0.4\lib\$(Platform)\ImExTk.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
