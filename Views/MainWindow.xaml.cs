@@ -512,8 +512,8 @@ namespace PanomersiveViewerNET
         /// <param name="sourceType">The camera stream source type.</param>
         public void SelectFixedSource(CameraStreamType sourceType)
         {
-            //try
-            //{
+            try
+            {
                 var currentPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
                 var sourcePath = $"{currentPath}\\Resources\\";
                 if (sourceType == CameraStreamType.Custom)
@@ -554,12 +554,11 @@ namespace PanomersiveViewerNET
                 _sessionManager?.Dispose();
                 _sessionManager = new SessionManager(ImmersiveWindow, PanoramicWindow);
                 _sessionManager.LoadTestFiles(sourcePath);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    Application.Current.Shutdown();
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
