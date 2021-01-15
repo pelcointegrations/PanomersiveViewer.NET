@@ -1,0 +1,64 @@
+﻿<Window x:Class="PanomersiveViewerNET.CameraTiltDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="405" Height="285" ResizeMode="NoResize" WindowStyle="ToolWindow"
+        Title="Camera Angle Adjustment" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#FF888888"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- Grid layout -->
+    <Grid Margin="0,4,8,8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Override the camera's tilt angle info -->
+        <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+            <!-- Override CheckBox -->
+            <CheckBox Content="Override the camera's reported tilt angle" IsChecked="{Binding OverrideCameraTilt, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Configuration Title -->
+            <TextBlock TextWrapping="Wrap" Margin="0,16,0,0" IsEnabled="{Binding OverrideCameraTilt}"
+                       Text="Configure the configured mounting angle of the camera." />
+
+            <!-- Configuration Instructions -->
+            <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" IsEnabled="{Binding OverrideCameraTilt}"
+                       Text="Instructions: Use the mouse to pan an immersive view to the left or right limit. Then use the slider to adjust the display to the desired angle."/>
+
+            <!-- Tilt Angle Override Value -->
+            <WrapPanel HorizontalAlignment="Center" Margin="0,16,0,0" IsEnabled="{Binding OverrideCameraTilt}">
+                <TextBlock Text="Tilt Angle Override:"/>
+                <TextBlock Margin="4,0,0,0" Text="{Binding CameraTiltAngle}"/>
+                <TextBlock Text="°"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <!-- Tilt angle Slider -->
+        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" IsEnabled="{Binding OverrideCameraTilt}">
+            <TextBlock Text="+90°"/>
+            <Slider Orientation="Vertical" Value="{Binding CameraTiltAngle, UpdateSourceTrigger=PropertyChanged}"
+                    TickFrequency="90" Foreground="Black" TickPlacement="BottomRight" Maximum="90" Minimum="-90" Height="150"/>
+            <TextBlock Text="-90°"/>
+        </StackPanel>
+
+        <!-- Dialog Buttons -->
+        <WrapPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right" >
+            <Button IsCancel="True" MinWidth="60" Content="_Cancel"/>
+            <Button IsDefault="True" Content="_OK" Click="OnButtonClick" Margin="8,0,0,0" MinWidth="60"/>
+        </WrapPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PanomersiveViewerNET.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CameraCollection" Type="PanomersiveViewerNET.CameraInfoCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SelectedCamera" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OverrideCameraTilt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CameraTiltAngle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PtzLimitMode" Type="ImExTkNet.PtzLimitMode" Scope="User">
+      <Value Profile="(Default)">ViewEdge</Value>
+    </Setting>
+    <Setting Name="AutoZoomIn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoZoomOut" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoPanTilt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="StreamOptimizedType" Type="ImExTkNet.StreamOptimizedType" Scope="User">
+      <Value Profile="(Default)">Automatic</Value>
+    </Setting>
+    <Setting Name="LayoutType" Type="PanomersiveViewerNET.LayoutOptions" Scope="User">
+      <Value Profile="(Default)">Panomersive</Value>
+    </Setting>
+    <Setting Name="ShowFps" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

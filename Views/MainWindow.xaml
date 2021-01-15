@@ -1,0 +1,73 @@
+﻿<Window x:Class="PanomersiveViewerNET.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PanomersiveViewerNET"
+        xmlns:utils="clr-namespace:PanomersiveViewerNET.Utils"
+        xmlns:imExTkNet="clr-namespace:ImExTkNet;assembly=ImExTk.NET"
+        Icon="../Resources/small.ico" Background="#282828" Closing="OnWindowClosing" Loaded="OnWindowLoaded" SizeChanged="OnWindowSizeChanged"
+        Title="{Binding WindowTitle}" Height="700" Width="1400" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="GridContent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <!-- Menu Bar -->
+        <Menu Background="White" Height="20">
+            <!-- Media Menu -->
+            <MenuItem Header="Media">
+                <MenuItem Header="Open Camera Stream (Live)" Click="OnOpenCameraStream"  IsCheckable="False"/>
+                <MenuItem Header="Open Local Test Files"  IsCheckable="False">
+                    <MenuItem Header="Optera 180°" Click="OnOpenLocalFile" Tag="{x:Static utils:CameraStreamType.Optera180}"/>
+                    <MenuItem Header="Optera 270°" Click="OnOpenLocalFile" Tag="{x:Static utils:CameraStreamType.Optera270}"/>
+                    <MenuItem Header="Optera 360°" Click="OnOpenLocalFile" Tag="{x:Static utils:CameraStreamType.Optera360}"/>
+                    <MenuItem Header="Full 360° Example" Click="OnOpenLocalFile" Tag="{x:Static utils:CameraStreamType.Full360}"/>
+                    <MenuItem Header="Open Files From Path" Click="OnOpenLocalFile" Tag="{x:Static utils:CameraStreamType.Custom}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Exit" Click="OnSelectExit" IsCheckable="False"/>
+            </MenuItem>
+
+            <!-- View Layout Menu -->
+            <MenuItem Header="View Layout" >
+                <MenuItem Header="Panoramic" Click="OnSelectViewLayout" Tag="{x:Static utils:LayoutOptions.Panoramic}" IsChecked="{Binding SelectedLayout, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static utils:LayoutOptions.Panoramic}}"/>
+                <MenuItem Header="Immersive" Click="OnSelectViewLayout" Tag="{x:Static utils:LayoutOptions.Immersive}" IsChecked="{Binding SelectedLayout, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static utils:LayoutOptions.Immersive}}"/>
+                <MenuItem Header="Panomersive" Click="OnSelectViewLayout" Tag="{x:Static utils:LayoutOptions.Panomersive}" IsChecked="{Binding SelectedLayout, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static utils:LayoutOptions.Panomersive}}"/>
+            </MenuItem>
+
+            <!-- Options Menu -->
+            <MenuItem Header="Options" >
+                <MenuItem Header="No PTZ Limiting" Click="OnSelectPtzLimitMode" Tag="{x:Static imExTkNet:PtzLimitMode.None}" IsChecked="{Binding SelectedPtzMode, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:PtzLimitMode.None}}"/>
+                <MenuItem Header="Limit view center to data area" Click="OnSelectPtzLimitMode" Tag="{x:Static imExTkNet:PtzLimitMode.ViewCenter}" IsChecked="{Binding SelectedPtzMode, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:PtzLimitMode.ViewCenter}}"/>
+                <MenuItem Header="Limit whole view to data area" Click="OnSelectPtzLimitMode" Tag="{x:Static imExTkNet:PtzLimitMode.ViewEdge}" IsChecked="{Binding SelectedPtzMode, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:PtzLimitMode.ViewEdge}}"/>
+                <MenuItem Header="Advanced view limiting options">
+                    <MenuItem Header="Auto-zoom-in upon approaching data edge" Click="OnSelectAutoZoomIn" IsChecked="{Binding IsAutoZoomInEnabled}"/>
+                    <MenuItem Header="Auto-zoom-out upon leaving data edge" Click="OnSelectAutoZoomOut" IsChecked="{Binding IsAutoZoomOutEnabled}"/>
+                    <MenuItem Header="Auto-pan/tilt on zoom out from data edge" Click="OnSelectAutoPanTilt" IsChecked="{Binding IsAutoPanTiltEnabled}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Optimization Bias">
+                    <MenuItem Header="Image Quality" Click="OnSelectOptimizationMode" Tag="{x:Static imExTkNet:StreamOptimizedTypes.Quality}" IsChecked="{Binding SelectedOptimizationType, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:StreamOptimizedTypes.Quality}}"/>
+                    <MenuItem Header="Processing Resources" Click="OnSelectOptimizationMode" Tag="{x:Static imExTkNet:StreamOptimizedTypes.Performance}" IsChecked="{Binding SelectedOptimizationType, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:StreamOptimizedTypes.Performance}}"/>
+                    <MenuItem Header="Automatic" Click="OnSelectOptimizationMode" Tag="{x:Static imExTkNet:StreamOptimizedTypes.Automatic}" IsChecked="{Binding SelectedOptimizationType, Converter={StaticResource EnumValueToBooleanConverter}, ConverterParameter={x:Static imExTkNet:StreamOptimizedTypes.Automatic}}"/>
+                </MenuItem>
+                <MenuItem Header="Adjust Camera Tilt" Click="OnAdjustCameraTilt" IsCheckable="False"/>
+                <MenuItem Header="Show FPS Counter" Click="OnSelectShowFps" IsChecked="{Binding ShowFps}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Panoramic View -->
+        <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black">
+            <WindowsFormsHost MinHeight="1">
+                <local:OpenGlWindow x:Name="PanoramicWindow" Tag="PanoramicWindow" MouseWheel="OnMouseWheel" MouseDown="OnMouseDown" MouseUp="OnMouseUp" MouseMove="OnMouseMove" MouseClick="OnMouseClick" MouseDoubleClick="OnMouseDoubleClick"/>
+            </WindowsFormsHost>
+        </Border>
+
+        <!-- Immersive View -->
+        <Border Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black">
+            <WindowsFormsHost MinHeight="1">
+                <local:OpenGlWindow x:Name="ImmersiveWindow" MouseWheel="OnMouseWheel" MouseDown="OnMouseDown" MouseUp="OnMouseUp" MouseMove="OnMouseMove" MouseClick="OnMouseClick"/>
+            </WindowsFormsHost>
+        </Border>
+    </Grid>
+</Window>

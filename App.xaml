@@ -1,0 +1,13 @@
+﻿<Application x:Class="PanomersiveViewerNET.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dotNetDemoApp="clr-namespace:PanomersiveViewerNET"
+             xmlns:utils="clr-namespace:PanomersiveViewerNET.Utils"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+                <utils:EnumValueToBooleanConverter x:Key="EnumValueToBooleanConverter"/>
+                <utils:EnumValueToBooleanConverter x:Key="EnumValueToBooleanInvertedConverter" Inverted="True"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
